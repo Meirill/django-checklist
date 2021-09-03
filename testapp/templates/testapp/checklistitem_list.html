@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends "mysite/base.html" %}
+{% block content %}
+
+<h1> This is your Checklist</h1>
+<p> {{ user.checklist.title }} | {{ checklist_set.id }}</p>
+<p>{{ user.id }}</p>
+<a href="{% url 'testapp:createitem' %}">Add a task!</a>
+<div class="container">
+  <ul>
+      {% for listitem in check_list.checklistitem_set.all %}
+          <p> Title: {{ listitem.title }} {{ listitem.text }} | User: {{ item.user }} </p>
+          <p></p>
+          {{ listitem.id }}
+      {% empty %}
+          <p>This list is empty</p>
+
+      {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

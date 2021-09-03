@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% extends "mysite/base.html" %}
+{% block content %}
+
+<h3>{{ checklist.title }}</h3>
+<a href="{% url 'testapp:createitem' check_list_pk=checklist.id %}">Add a task!</a>
+<div class="container">
+  <ul>
+      {% for listitem in checklist.checklistitem_set.all %}
+          <!-- <p> Title: {{ listitem.title }} {{ listitem.text }} | User: {{ checklist.user }} | {{ listitem.id }} </p> -->
+          <li>
+          <!-- <div class="container"> -->
+            <a href="{% url 'testapp:updatetask' pk=listitem.pk %}">Title: {{ listitem.title }} {{ listitem.text }} |
+              {% if listitem.status == True %}
+                <span class="glyphicon glyphicon-check text-success" aria-hidden="true"></span>
+              {% else %}
+                <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+              {% endif %}
+            </a>
+            Message: {{ listitem.message }}
+            <a href="{% url 'testapp:deletetask' pk=listitem.pk %}" title="delete" class="btn btn-simple">
+              <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+              <span class="text-danger icon-label">Delete</span>
+            </a>
+
+          <!-- </div> -->
+          </li>
+      {% empty %}
+          <p>This list is empty</p>
+      {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}
